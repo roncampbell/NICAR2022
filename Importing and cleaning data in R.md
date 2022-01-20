@@ -78,3 +78,26 @@ calculate percentages for largest racial groups
          Black_per = 100 * (Black / Total),
          Hispanic_per = 100 * (Hispanic / Total),
          Asian_per = 100 * (Asian / Total))
+         
+Getting a filtered table for the eight Atlanta metro counties is easy now that we've built the statewide table. All we need to do is check the FIPS codes for the metro counties.
+
+> metro_co_races <- ga_races %>% 
+  filter(GEOID %in% c('13057', '13063', '13067', '13089', '13117',
+                      '13121', '13135', '13151'))
+                      
+Now let's get race data at the tract level for the metro counties. We'll use tidycensus again. We specify the FIPS codes for the state ('13') and the counties separately this time.
+
+> metro_tract_race <- get_decennial(geography = "tract", 
+                                year = 2020,
+                                table = 'P2',
+                                cache_table = TRUE,
+                                state = '13',
+                                county = c('057', '063', 
+                                           '067', '089', 
+                                           '117',
+                                           '121', '135', 
+                                           '151'))
+                                           
+
+
+
