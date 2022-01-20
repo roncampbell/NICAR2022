@@ -112,5 +112,5 @@ We can clean it up with just a few lines of code:
 > metro_tract_race <- metro_tract_race[,c(1,5,2:4)]
 > colnames(metro_tract_race)[3] <- 'Tract'
 
-
+![](https://github.com/roncampbell/NICAR2022/blob/images/metro_tract_race2.png)
 
