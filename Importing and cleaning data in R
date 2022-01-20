@@ -1,0 +1,6 @@
+# Importing and cleaning data in R
+
+All the data and maps you need for this class are already in this Github repo. But learning how to find, import and, most importantly, clean Census data are valuable skills. We'll take a little time to demonstrate, using the files for this class as examples.
+
+First, as always with R, we'll grab a few packages to make life easy - the tidyverse and two Census-centric libraries, tidycensus and tigris. The only thing you need, aside from the packages themselves, is a free Census API key; you can get that by signing up here: <https://api.census.gov/data/key_signup.html> You can install it as a default in tidycensus.
+
