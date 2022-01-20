@@ -52,7 +52,8 @@ Simplify the categories from 73 to 9.
                           "P2_010N", "P2_011N")) %>% 
   pivot_wider(names_from = variable, values_from = value)</code>
 
-Replace census variables with labels. Use `load_variables(2020, 'pl', cache=TRUE)` for reference 
+Replace census variables with labels. Use `load_variables(2020, 'pl', cache=TRUE)` for reference.
+
 <code>colnames(ga_races)[2] <- 'County'
 colnames(ga_races)[3] <- 'Total'
 colnames(ga_races)[4] <- 'Hispanic'
@@ -65,6 +66,7 @@ colnames(ga_races)[10] <- 'Other'
                           colnames(ga_races)[11] <- 'Multiracial'</code>
 
 Calculate percentages for largest racial groups
+  
 <code>ga_races <- ga_races %>% 
   mutate(White_per = 100 * (White / Total),
          Black_per = 100 * (Black / Total),
@@ -73,13 +75,13 @@ Calculate percentages for largest racial groups
          
 Getting a filtered table for the eight Atlanta metro counties is easy now that we've built the statewide table. All we need to do is check the FIPS codes for the metro counties.
 
-> metro_co_races <- ga_races %>% 
+<code>metro_co_races <- ga_races %>% 
   filter(GEOID %in% c('13057', '13063', '13067', '13089', '13117',
-                      '13121', '13135', '13151'))
+  '13121', '13135', '13151'))</code>
                       
 Now let's get race data at the tract level for the metro counties. We'll use tidycensus again. We specify the FIPS codes for the state ('13') and the counties separately this time.
 
-> metro_tract_race <- get_decennial(geography = "tract", 
+<code>metro_tract_race <- get_decennial(geography = "tract", 
                                 year = 2020,
                                 table = 'P2',
                                 cache_table = TRUE,
@@ -88,7 +90,7 @@ Now let's get race data at the tract level for the metro counties. We'll use tid
                                            '067', '089', 
                                            '117',
                                            '121', '135', 
-                                           '151'))
+                          '151'))</code>
                                            
 The data frame is a bit messy. It looks like this.
 
@@ -96,13 +98,13 @@ The data frame is a bit messy. It looks like this.
 
 We can clean it up with just a few lines of code:
 
-> metro_tract_race <- metro_tract_race %>% 
+<code>metro_tract_race <- metro_tract_race %>% 
   mutate(NAME = str_remove(NAME, ", Georgia"),
          County = str_extract(NAME, "[A-Z,a-z]+ County$"),
-         NAME = str_remove(NAME, ", .*$"))
+  NAME = str_remove(NAME, ", .*$"))</code>
          
-> metro_tract_race <- metro_tract_race[,c(1,5,2:4)]
-> colnames(metro_tract_race)[3] <- 'Tract'
+<code>metro_tract_race <- metro_tract_race[,c(1,5,2:4)]</code>
+<code>colnames(metro_tract_race)[3] <- 'Tract'</code>
 
 ![](https://github.com/roncampbell/NICAR2022/blob/images/metro_tract_race2.png)
 
