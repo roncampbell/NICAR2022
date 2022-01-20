@@ -6,11 +6,9 @@ First, as always with R, we'll grab a few packages to make life easy - the tidyv
 
 Remember that you must install packages before you can use them. To do so, make sure you have a working web connection and then type this command at the console prompt: <code>install.packages("xxx")</code> where xxx (in quote marks) is the name of the package.
 
-> library(tidyverse)
-
-> library(tidycensus)
-
-> library(tigris)
+<code>library(tidyverse)</code>
+<code>library(tidycensus)</code>
+<code>library(tigris)</code>
 
 First, we'll import maps (shapefiles) using the tigris package. By default, Census Bureau maps extend offshore; we want maps trimmed to the coastline, known as cartographic boundary (CB) maps. We'll begin by importing a shapefile of Georgia counties.
 
