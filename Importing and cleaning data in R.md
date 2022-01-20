@@ -24,60 +24,52 @@ Next, we'll filter that map to get just the eight counties in the Atlanta metro 
 
 We also want 2020 census tracts for the metro counties. We have to specify the year because the default is 2019.
 
-> metro_tracts20 <- tracts("GA", county = c("121","135","067","089",
+<code>metro_tracts20 <- tracts("GA", county = c("121","135","067","089",
                                           "063","057","117","151"), 
-                         cb = TRUE, year = 2020)
+                        cb = TRUE, year = 2020)</code>
 
 Finally, we'll filter the metro area tract maps to get just the tracts in Fulton County. Again, we'll use the FIPS code.
 
-> fulton_tracts20 <- metro_tracts20 %>% 
-  filter(COUNTYFP == '121')
+<code>fulton_tracts20 <- metro_tracts20 %>% 
+  filter(COUNTYFP == '121')</code>
 
 Data journalists do not live by maps alone. We also hunger for data to hang on those maps. And for this, we have tidycensus to lead us through the Census Bureau maze. We're going to grab a slice of the 2020 redistricting file for Georgia - specifically the Hispanic and NonHispanic by Race file (Table P2). That table has 73 columns. We're going to drastically pare it down to just a handful. If you want to know the number of people of six races by census tract, you're on your own.
 
-use tidycensus to grab redistricting file by county
-> ga_race20 <- tidycensus::get_decennial(geography = "county", 
+Use tidycensus to grab redistricting file by county.
+  
+<code>ga_race20 <- tidycensus::get_decennial(geography = "county", 
                                        year = 2020,
                                        table = 'P2',
                                        cache_table = TRUE,
                                        state = '13',
-                                       geometry = FALSE) 
+                   geometry = FALSE)</code> 
 
-simplify the categories from 73 to 9
-> ga_races <- ga_race20 %>% 
+Simplify the categories from 73 to 9.
+  
+<code>ga_races <- ga_race20 %>% 
   filter(variable %in% c("P2_001N", "P2_002N", "P2_005N", "P2_006N",
                          "P2_007N", "P2_008N", "P2_009N",
                           "P2_010N", "P2_011N")) %>% 
-  pivot_wider(names_from = variable, values_from = value)
+  pivot_wider(names_from = variable, values_from = value)</code>
 
-replace census variables with labels
-use `load_variables(2020, 'pl', cache=TRUE)` for reference 
-> colnames(ga_races)[2] <- 'County'
-> 
-> colnames(ga_races)[3] <- 'Total'
-> 
-> colnames(ga_races)[4] <- 'Hispanic'
-> 
-> colnames(ga_races)[5] <- 'White'
-> 
-> colnames(ga_races)[6] <- 'Black'
-> 
-> colnames(ga_races)[7] <- 'AmerInd'
-> 
-> colnames(ga_races)[8] <- 'Asian'
-> 
-> colnames(ga_races)[9] <- 'PacIsl'
-> 
-> colnames(ga_races)[10] <- 'Other'
-> 
-> colnames(ga_races)[11] <- 'Multiracial'
+Replace census variables with labels. Use `load_variables(2020, 'pl', cache=TRUE)` for reference 
+<code>colnames(ga_races)[2] <- 'County'
+colnames(ga_races)[3] <- 'Total'
+colnames(ga_races)[4] <- 'Hispanic'
+colnames(ga_races)[5] <- 'White'
+colnames(ga_races)[6] <- 'Black'
+colnames(ga_races)[7] <- 'AmerInd'
+colnames(ga_races)[8] <- 'Asian'
+colnames(ga_races)[9] <- 'PacIsl'
+colnames(ga_races)[10] <- 'Other' 
+                          colnames(ga_races)[11] <- 'Multiracial'</code>
 
-calculate percentages for largest racial groups
-> ga_races <- ga_races %>% 
+Calculate percentages for largest racial groups
+<code>ga_races <- ga_races %>% 
   mutate(White_per = 100 * (White / Total),
          Black_per = 100 * (Black / Total),
          Hispanic_per = 100 * (Hispanic / Total),
-         Asian_per = 100 * (Asian / Total))
+  Asian_per = 100 * (Asian / Total))</code>
          
 Getting a filtered table for the eight Atlanta metro counties is easy now that we've built the statewide table. All we need to do is check the FIPS codes for the metro counties.
 
