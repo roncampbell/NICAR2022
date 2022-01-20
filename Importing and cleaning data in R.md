@@ -35,7 +35,7 @@ Finally, we'll filter the metro area tract maps to get just the tracts in Fulton
 
 Data journalists do not live by maps alone. We also hunger for data to hang on those maps. And for this, we have tidycensus to lead us through the Census Bureau maze. We're going to grab a slice of the 2020 redistricting file for Georgia - specifically the Hispanic and NonHispanic by Race file (Table P2). That table has 73 columns. We're going to drastically pare it down to just a handful. If you want to know the number of people of six races by census tract, you're on your own.
 
-# use tidycensus to grab redistricting file by county
+use tidycensus to grab redistricting file by county
 > ga_race20 <- tidycensus::get_decennial(geography = "county", 
                                        year = 2020,
                                        table = 'P2',
@@ -43,15 +43,15 @@ Data journalists do not live by maps alone. We also hunger for data to hang on t
                                        state = '13',
                                        geometry = FALSE) 
 
-# simplify the categories from 73 to 9
+simplify the categories from 73 to 9
 > ga_races <- ga_race20 %>% 
   filter(variable %in% c("P2_001N", "P2_002N", "P2_005N", "P2_006N",
                          "P2_007N", "P2_008N", "P2_009N",
                           "P2_010N", "P2_011N")) %>% 
   pivot_wider(names_from = variable, values_from = value)
 
-# replace census variables with labels
-# use `load_variables(2020, 'pl', cache=TRUE)` for reference 
+replace census variables with labels
+use `load_variables(2020, 'pl', cache=TRUE)` for reference 
 > colnames(ga_races)[2] <- 'County'
 > colnames(ga_races)[3] <- 'Total'
 > colnames(ga_races)[4] <- 'Hispanic'
@@ -63,7 +63,7 @@ Data journalists do not live by maps alone. We also hunger for data to hang on t
 > colnames(ga_races)[10] <- 'Other'
 > colnames(ga_races)[11] <- 'Multiracial'
 
-# calculate percentages for largest racial groups
+calculate percentages for largest racial groups
 > ga_races <- ga_races %>% 
   mutate(White_per = 100 * (White / Total),
          Black_per = 100 * (Black / Total),
