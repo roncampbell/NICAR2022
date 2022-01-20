@@ -14,15 +14,23 @@ Remember that you must install packages before you can use them. To do so, make 
 
 First, we'll import maps (shapefiles) using the tigris package. By default, Census Bureau maps extend offshore; we want maps trimmed to the coastline, known as cartographic boundary (CB) maps. We'll begin by importing a shapefile of Georgia counties.
 
-
+> ga_counties <- counties("GA", cb = TRUE)
 
 Next, we'll filter that map to get just the eight counties in the Atlanta metro area, using their FIPS codes to identify them.
 
+> metro_counties <- ga_counties %>% 
+  filter(COUNTYFP %in% c("121","135","067","089","063","057",
+                         "117","151"))
 
 We also want 2020 census tracts for the metro counties. We have to specify the year because the default is 2019.
 
+> metro_tracts20 <- tracts("GA", county = c("121","135","067","089",
+                                          "063","057","117","151"), 
+                         cb = TRUE, year = 2020)
 
 Finally, we'll filter the metro area tract maps to get just the tracts in Fulton County. Again, we'll use the FIPS code.
 
+> fulton_tracts20 <- metro_tracts20 %>% 
+  filter(COUNTYFP == '121')
 
 
