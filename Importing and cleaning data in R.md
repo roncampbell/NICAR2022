@@ -98,6 +98,19 @@ Now let's get race data at the tract level for the metro counties. We'll use tid
                                            '121', '135', 
                                            '151'))
                                            
+The data frame is a bit messy. It looks like this.
+
+![](https://github.com/roncampbell/NICAR2022/blob/images/metro_tract_race.png)
+
+We can clean it up with just a few lines of code:
+
+> metro_tract_race <- metro_tract_race %>% 
+  mutate(NAME = str_remove(NAME, ", Georgia"),
+         County = str_extract(NAME, "[A-Z,a-z]+ County$"),
+         NAME = str_remove(NAME, ", .*$"))
+         
+> metro_tract_race <- metro_tract_race[,c(1,5,2:4)]
+> colnames(metro_tract_race)[3] <- 'Tract'
 
 
 
