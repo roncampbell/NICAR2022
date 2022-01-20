@@ -53,14 +53,23 @@ simplify the categories from 73 to 9
 replace census variables with labels
 use `load_variables(2020, 'pl', cache=TRUE)` for reference 
 > colnames(ga_races)[2] <- 'County'
+> 
 > colnames(ga_races)[3] <- 'Total'
+> 
 > colnames(ga_races)[4] <- 'Hispanic'
+> 
 > colnames(ga_races)[5] <- 'White'
+> 
 > colnames(ga_races)[6] <- 'Black'
+> 
 > colnames(ga_races)[7] <- 'AmerInd'
+> 
 > colnames(ga_races)[8] <- 'Asian'
+> 
 > colnames(ga_races)[9] <- 'PacIsl'
+> 
 > colnames(ga_races)[10] <- 'Other'
+> 
 > colnames(ga_races)[11] <- 'Multiracial'
 
 calculate percentages for largest racial groups
