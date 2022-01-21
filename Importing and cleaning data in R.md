@@ -133,9 +133,40 @@ Now we're going to switch gears from the 2020 Census to the American Community S
   
 A couple of footnotes: The code above calls for a specific variable in a specific table, B19013_001, median household income in the past 12 months, from "acs5", meaning the American Community Survey 5-Year Estimates, for the year 2019 for eight specified Georgia counties. But how did I know what to ask for among the thousands of tables the Census Bureau offers? The answer is that tidycensus has an insanely useful tool called "load_variables". You can get a list of every variable in every table in the ACS and the decennial census by specifying the year, the dataset and whether you want to cache it. For details see <https://walker-data.com/tidycensus/reference/load_variables.html>. (Not mentioned in the website, if you want the variables for the redistricting file, the dataset is "pl" as in "public law.")
 
-The file requires a little cleaning. First, since all eight counties are in Georgia, we'll remove ", Georgia" from the name field.
+The file requires a little cleaning. We already did something similar with metro_tract_race. 
   
 <code>metro_county_inc <- metro_county_inc %>% 
   mutate(NAME = str_remove(NAME, ", .*$"))</code>
   
-
+Rearrange the columns and rename them.
+  
+<code>metro_county_inc <- metro_county_inc[, c(1:2,4:5)]</code>
+  
+<code>colnames(metro_county_inc)[2] <- 'County'</code>
+  
+<code>colnames(metro_county_inc)[3] <- 'MedianHHInc'</code>
+    
+Now we'll get median household income for census tracts in the Atlanta metro. Our script is almost the same as before, except that the geography is "tract" instead of "county".
+  
+<code>metro_tract_inc <- get_acs(geography = "tract",
+                           variables = "B19013_001",
+                           year = 2019,
+                           state = "GA",
+                           county = c('057', '063', '067', '089',
+                                      '117', '121', '135', '151'),
+                         survey = "acs5")</code>
+  
+And of course it requires a little minor cleaning, but nothing we haven't seen before.
+  
+<code>metro_tract_inc <- metro_tract_inc %>% 
+  mutate(NAME = str_remove(NAME, ", Georgia"),
+         County = str_extract(NAME, "[A-Z,a-z]+ County$"),
+  NAME = str_remove(NAME, ", .*$"))</code>
+  
+Now we rearrange and rename the columns, and we're done with importing and cleaning!
+  
+<code>metro_tract_inc <- metro_tract_inc[,c(1,6,2,4:5)]</code>
+    
+<code>colnames(metro_tract_inc)[3] <- 'Tract'</code>
+  
+<code>colnames(metro_tract_inc)[4] <- 'MedHHInc'</code>
