@@ -117,3 +117,28 @@ The current map shades from dark (low values) to bright (high values). It might 
    theme_bw()</code>
   
  ![](https://github.com/roncampbell/NICAR2022/blob/images/BlackCountyMap4.png)
+
+R has several packages for interactive graphics. One of my favorities is tmap. It has two modes -- "plot" for static maps and "view" for interactive. We will use both.
+  
+<code>tmap_mode("view")</code>
+  
+Let's take another look at the percentage of Black residents in Georgia counties, this time using an interactive map.
+  
+<code>tm_shape(ga_race_map) +
+  tm_fill(col = "Black_per", palette = "viridis", alpha = 0.5)</code>
+  
+![]()
+  
+When we click on a county, we get a semi-informative popup. But we can customize the popup to provide more information:
+  
+<code>tm_shape(ga_race_map) +
+  tm_fill(col = "Black_per", palette = "viridis", alpha = 0.5,
+          popup.vars = c("County" = "NAME.x", 
+  "Black (%)" = "Black_per"))</code>
+  
+![]()
+  
+
+  
+ 
+  
