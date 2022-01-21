@@ -6,7 +6,7 @@ We'll be using data and maps from the 2020 Census and 2019 American Community Su
 
 If you're taking this class at NICAR in Atlanta, the data and maps are pre-loaded on your laptop. If you're reading this later, the data and maps are here. Click on the word "master" near the top of the screen, just to the left of the word "NICAR2022" in blue; in the drop-down menu, click on "data" to display the list of data files and map folders.
 
-Let's load libraries and get busy. If you don't already have these packages, then in the R console type this <code>install.packages("xxxxx")</code> where "xxxxx" is the package name. 
+Let's load libraries and get busy. If you don't already have these packages, then in the R console type <code>install.packages("xxxxx")</code> where "xxxxx" is the package name. 
 
 <code>library(tidyverse)</code>
 
