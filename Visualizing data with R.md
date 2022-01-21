@@ -73,3 +73,47 @@ One of the great things about R is that we can reuse the code. Let's recycle thi
   scale_y_continuous(limits = c(0, 20))</code>
   
 ![](https://github.com/roncampbell/NICAR2022/blob/images/histogram4.png)  
+
+ Next, we'll map the percentage of Black residents in Georgia counties using a combination of ggplot and the sf package. We'll need to merge ga_counties (the shapefile or digital map of Georgia counties) and ga_races, which contains racial data by county. We'll use GEOID, a unique identifier for every county in the US.
+  
+<code>ga_race_map <- left_join(ga_counties, ga_races,
+                     by = "GEOID")</code>
+  
+Now we'll build a simple map:
+  
+<code>ggplot(ga_race_map) +
+  geom_sf(aes(fill = Black_per))</code>
+  
+![]()
+  
+Our map could do with a title and a neater background.
+  
+<code>ggplot(ga_race_map) +
+  geom_sf(aes(fill = Black_per)) +
+  labs(title = "Black percentage in Georgia counties",
+       caption = "Source: 2020 Census") +
+  theme_bw()</code>
+  
+![]()
+  
+The viridis package offers several eye-pleasing color palettes for charts and maps. Let's use that.
+  
+<code>ggplot(ga_race_map) +
+  geom_sf(aes(fill = Black_per)) +
+  labs(title = "Black percentage in Georgia counties",
+       caption = "Source: 2020 Census") +
+  scale_fill_viridis_c() +
+  theme_bw()</code>
+  
+![]()
+  
+The current map shades from dark (low values) to bright (high values). It might make more sense to reverse the scale. We can do this by specifying "direction = -1".
+  
+ <code>ggplot(ga_race_map) +
+  geom_sf(aes(fill = Black_per)) +
+  labs(title = "Black percentage in Georgia counties",
+       caption = "Source: 2020 Census") +
+  scale_fill_viridis_c(direction = -1) +
+   theme_bw()</code>
+  
+ ![]()
