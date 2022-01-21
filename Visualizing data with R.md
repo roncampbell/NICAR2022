@@ -198,7 +198,7 @@ Now we'll build a map showing side-by-side the distribution of the primary racia
           n= 5,
   palette = "Greens") </code>
   
- ![]() 
+ ![](https://github.com/roncampbell/NICAR2022/blob/images/MetroTractRaces1.png) 
   
 "Facets" are like tabs in a spreadsheet or pages in a book. The key thing to look for in the code above is the term (by = "Race"). Remember that when we changed metro_tract_race into long format, we created a new column called "Race". That column has values like "White", "Black" and "Hispanic", and the code is using the column to create small maps, or facets, based on what it finds in that column. It then assigns a color to the value in the next column, "Percent", broken down into one of five quantiles, and the colors are shades of, you guessed it, green.
   
@@ -214,7 +214,7 @@ But the legend is off by itself. We can do a little better.
             legend.position = c(-0.7, 0.2),
   panel.label.bg.color = "white")</code>
   
-![]()
+![](https://github.com/roncampbell/NICAR2022/blob/images/MetroTractRaces2.png)
   
 
   
