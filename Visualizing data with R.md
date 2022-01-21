@@ -45,7 +45,7 @@ One of the quickest ways to explore data is with a histogram. Let's see how many
   
 ![](https://github.com/roncampbell/NICAR2022/blob/images/histogram1.png)
   
-Let's add a scale. That will make it easier to compare Whites with other racial groups. Since only a handful of the 159 counties are in any one category ("bin" in histogram-speak), we can set the vertical (y) axis low.
+Let's add a scale, using the scales package. That will make it easier to compare Whites with other racial groups. Since only a handful of the 159 counties are in any one category ("bin" in histogram-speak), we can set the vertical (y) axis low.
   
 <code>ggplot(ga_races, aes(White_per)) +
   geom_histogram() +
@@ -54,7 +54,7 @@ Let's add a scale. That will make it easier to compare Whites with other racial 
   
 ![](https://github.com/roncampbell/NICAR2022/blob/images/histogram2.png)
   
-Let's brighten it up by changing the background and adding an outline and fill to the bars.
+Let's brighten it up by changing the background, or theme, and adding an outline ("color") and fill to the bars.
   
 <code>ggplot(ga_races, aes(White_per)) +
   geom_histogram(color = "navy", fill = "steelblue") +
@@ -74,7 +74,7 @@ One of the great things about R is that we can reuse the code. Let's recycle thi
   
 ![](https://github.com/roncampbell/NICAR2022/blob/images/histogram4.png)  
 
- Next, we'll map the percentage of Black residents in Georgia counties using a combination of ggplot and the sf package. We'll need to merge ga_counties (the shapefile or digital map of Georgia counties) and ga_races, which contains racial data by county. We'll use GEOID, a unique identifier for every county in the US.
+Next, we'll map the percentage of Black residents in Georgia counties using a combination of ggplot and the sf package. We'll need to merge ga_counties (the shapefile or digital map of Georgia counties) and ga_races, which contains racial data by county. We'll use GEOID, a unique identifier for every county in the US, which is present in both tables.
   
 <code>ga_race_map <- left_join(ga_counties, ga_races,
                      by = "GEOID")</code>
@@ -86,7 +86,7 @@ Now we'll build a simple map:
   
 ![](https://github.com/roncampbell/NICAR2022/blob/images/BlackCountyMap1.png)
   
-Our map could do with a title and a neater background.
+Our map could do with a title and a neater background. Last time we used theme_classic as our background; this time, we'll use a different theme.
   
 <code>ggplot(ga_race_map) +
   geom_sf(aes(fill = Black_per)) +
@@ -118,12 +118,12 @@ The current map shades from dark (low values) to bright (high values). It might 
   
  ![](https://github.com/roncampbell/NICAR2022/blob/images/BlackCountyMap4.png)
 
-R has several packages for interactive graphics. One of my favorities is tmap. It has two modes -- "plot" for static maps and "view" for interactive. We will use both.
-  
+R has several packages for interactive graphics. One of my favorities is tmap. It has two modes -- "plot" for static maps and "view" for interactive. We will use both in this class.
+
+Let's take another look at the percentage of Black residents in Georgia counties, this time using tmap in interactive mode.
+    
 <code>tmap_mode("view")</code>
-  
-Let's take another look at the percentage of Black residents in Georgia counties, this time using an interactive map.
-  
+    
 <code>tm_shape(ga_race_map) +
   tm_fill(col = "Black_per", palette = "viridis", alpha = 0.5)</code>
   
