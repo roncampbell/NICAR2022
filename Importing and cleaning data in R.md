@@ -111,7 +111,7 @@ We can clean it up with just a few lines of code:
 The next steps with the metro_tract_race table are exactly the same as what we did with the ga_races table:
   
   1) Reduce the number of racial categories from 73 to 9. 
-  2) Replace census variables with plain-English variables.
+  2) Replace census variable names with plain-English variable names.
   3) Calculate racial percentages.
   
   
