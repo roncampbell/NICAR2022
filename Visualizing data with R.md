@@ -152,7 +152,7 @@ Now we'll create the map.
   tm_polygons() +
   tm_bubbles(size = "Black_per", alpha = 0.2, col = "green")</code>
   
-![]()
+![](https://github.com/roncampbell/NICAR2022/blob/images/Fulton1.png)
   
 As usual with tmap, the popups could use some improvements.
   
@@ -161,5 +161,5 @@ As usual with tmap, the popups could use some improvements.
   tm_bubbles(size = "Black_per", alpha = 0.2, col = "green",
   popup.vars = c("County", "Tract", "Black (%)" = "Black_per"))</code>
   
-![]() 
+![](https://github.com/roncampbell/NICAR2022/blob/images/Fulton2.png) 
   
