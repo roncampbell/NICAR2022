@@ -163,3 +163,58 @@ As usual with tmap, the popups could use some improvements.
   
 ![](https://github.com/roncampbell/NICAR2022/blob/images/Fulton2.png) 
   
+Another way to visualize data on a map is to simplify. The Census Bureau reports a lot of information for census tracts, but on a map tracts are almost impossibly hard to visualize. Every tract has boundary lines. In Fulton County there are 327 tracts, and in the Atlanta metro there are 728 tracts. No wonder the maps seem a little cluttered.
+  
+One alternative is to represent each tract by a single point or centroid. Another alternative is to use facets, displaying different pieces of the data side by side. We'll use centroids and facets together to show where the major racial groups live in the Atlanta metro.
+  
+First, we'll convert the Atlanta metro tract map from polygons with boundaries into centroids. 
+  
+<code>metro_centroids20 <- st_centroid(metro_tracts20)</code>
+    
+Next, we'll convert the metro race table into long format using tidyr; this will make it easier to map each race with a single block of code.
+  
+<code>metro_tract_race_long <- metro_tract_races %>% 
+  select(GEOID, White = White_per, Black = Black_per, 
+         Hispanic = Hispanic_per) %>% 
+  pivot_longer(!GEOID, names_to = "Race", 
+  values_to = "Percent")</code>
+  
+Now that the data and the shapefile are both ready, we'll join them using their common field, GEOID.
+  
+<code>metro_tract_race_long_map <- inner_join(metro_tracts20,
+                                        metro_tract_race_long,
+                                   by = "GEOID")</code>
+  
+We're going to build this map in tmap in static mode. Unfortunately, it does not work in interactive mode. Believe me, I tried.
+  
+<code>tmap_mode("plot")</code>
+  
+Now we'll build a map showing side-by-side the distribution of the primary racial groups in the Atlanta metro area. 
+  
+<code>tm_shape(metro_tract_race_long_map) +
+  tm_facets(by = "Race", scale.factor = 4) +
+  tm_fill(col = "Percent",
+          style = "quantile",
+          n= 5,
+  palette = "Greens") </code>
+  
+ ![]() 
+  
+"Facets" are like tabs in a spreadsheet or pages in a book. The key thing to look for in the code above is the term (by = "Race"). Remember that when we changed metro_tract_race into long format, we created a new column called "Race". That column has values like "White", "Black" and "Hispanic", and the code is using the column to create small maps, or facets, based on what it finds in that column. It then assigns a color to the value in the next column, "Percent", broken down into one of five quantiles, and the colors are shades of, you guessed it, green.
+  
+But the legend is off by itself. We can do a little better.
+  
+<code>tm_shape(metro_tract_race_long_map) +
+  tm_facets(by = "Race", scale.factor = 4) +
+  tm_fill(col = "Percent",
+          style = "quantile",
+          n= 5,
+          palette = "Greens") +
+  tm_layout(bg.color = "grey", 
+            legend.position = c(-0.7, 0.2),
+  panel.label.bg.color = "white")</code>
+  
+![]()
+  
+
+  
