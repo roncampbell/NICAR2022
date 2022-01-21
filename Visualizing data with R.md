@@ -84,7 +84,7 @@ Now we'll build a simple map:
 <code>ggplot(ga_race_map) +
   geom_sf(aes(fill = Black_per))</code>
   
-![]()
+![](https://github.com/roncampbell/NICAR2022/blob/images/BlackCountyMap1.png)
   
 Our map could do with a title and a neater background.
   
@@ -94,7 +94,7 @@ Our map could do with a title and a neater background.
        caption = "Source: 2020 Census") +
   theme_bw()</code>
   
-![]()
+![](https://github.com/roncampbell/NICAR2022/blob/images/BlackCountyMap2.png)
   
 The viridis package offers several eye-pleasing color palettes for charts and maps. Let's use that.
   
@@ -105,7 +105,7 @@ The viridis package offers several eye-pleasing color palettes for charts and ma
   scale_fill_viridis_c() +
   theme_bw()</code>
   
-![]()
+![](https://github.com/roncampbell/NICAR2022/blob/images/BlackCountyMap3.png)
   
 The current map shades from dark (low values) to bright (high values). It might make more sense to reverse the scale. We can do this by specifying "direction = -1".
   
@@ -116,4 +116,4 @@ The current map shades from dark (low values) to bright (high values). It might 
   scale_fill_viridis_c(direction = -1) +
    theme_bw()</code>
   
- ![]()
+ ![](https://github.com/roncampbell/NICAR2022/blob/images/BlackCountyMap4.png)
