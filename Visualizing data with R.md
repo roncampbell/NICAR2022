@@ -37,3 +37,39 @@ Next step: Import the data and maps. Important note: I won't specify file locati
 <code>metro_co_income <- read_csv("metro_county_inc.csv", col_types = "ccii")</code>
   
 <code>metro_tract_income <- read_csv("metro_tract_inc.csv", col_types = "cccii")</code>    
+
+One of the quickest ways to explore data is with a histogram. Let's see how many of Georgia's 159 counties have a high percentage of White residents. We'll start with a simple histogram and gradually make it a bit more elaborate.
+  
+<code>ggplot(ga_races, aes(White_per)) +
+  geom_histogram()</code>
+  
+![]()
+  
+Let's add a scale. That will make it easier to compare Whites with other racial groups. Since only a handful of the 159 counties are in any one category ("bin" in histogram-speak), we can set the vertical (y) axis low.
+  
+<code>ggplot(ga_races, aes(White_per)) +
+  geom_histogram() +
+  scale_x_continuous(limits = c(0, 100)) +
+  scale_y_continuous(limits = c(0, 20))</code>
+  
+![]()
+  
+Let's brighten it up by changing the background and adding an outline and fill to the bars.
+  
+<code>ggplot(ga_races, aes(White_per)) +
+  geom_histogram(color = "navy", fill = "steelblue") +
+  theme_classic() +
+  scale_x_continuous(limits = c(0, 100)) +
+  scale_y_continuous(limits = c(0, 20))</code>
+  
+![]()
+  
+One of the great things about R is that we can reuse the code. Let's recycle this code for Black residents. We just have to change a single word.
+  
+<code>ggplot(ga_races, aes(Black_per)) +
+  geom_histogram(color = "navy", fill = "steelblue") +
+  theme_classic() +
+  scale_x_continuous(limits = c(0, 100)) +
+  scale_y_continuous(limits = c(0, 20))</code>
+  
+![]()  
