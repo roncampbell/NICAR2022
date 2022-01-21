@@ -250,3 +250,37 @@ The bars don't quite reach 100%; we could get most of the way if we included the
 
 ![](https://github.com/roncampbell/NICAR2022/blob/images/StackedBars2.png)  
   
+Until now we've been visualizing people and, more specifically, race. Now let's talk about money. The American Community Survey produces statistics on thousands of topics. One of my favorite ACS stats is median household income, which is found in Table B19013. You can get this number for your state, county, city, ZIP Code or census tract. 
+  
+For this class, we have median household income available for Atlanta metro counties and tracts. We'll start by doing a scatterplot of the counties.
+  
+<code>ggplot(metro_co_income, aes(x = NAME, y = MedianHHInc)) +
+  geom_point()</code>
+  
+![]()
+  
+Aside from the usual problem with the county name labels, the dots are all over the place. It would make a lot more sense if they were arranged from highest to lowest. And while we're at it, let's make those dots more distinctive.
+  
+<code>ggplot(metro_co_income, aes(x = MedianHHInc, 
+                             y = reorder(NAME, MedianHHInc))) +
+  geom_point(size = 3, color = "forestgreen")</code>
+  
+![]()
+  
+Much better. The dots are clearly ordered and pop out. The county labels are easy to read. But these are estimates; they all have margins of error. Three of the counties -- Henry, Gwinnett and Fulton -- have nearly identical median household incomes; knowing the margins of error would help us evaluate their estimated incomes better. In addition, the chart needs a title and a clean background. 
+  
+<code>ggplot(metro_co_income, aes(x = MedianHHInc, 
+                            y = reorder(NAME, MedianHHInc))) +
+  geom_point(size = 3, color = "forestgreen") +
+  geom_errorbar(aes(xmin = MedianHHInc - moe,
+                    xmax = MedianHHInc + moe)) +
+  labs(title = "Median household income in Atlanta metro",
+       caption = "Source: American Community Survey, 2019") +
+  xlab("Median Household Income") +
+  ylab("") +
+  theme_classic() +
+  scale_x_continuous(labels = scales::dollar_format())</code>
+  
+  ![]()
+  
+  
