@@ -138,7 +138,28 @@ When we click on a county, we get a semi-informative popup. But we can customize
   
 ![](https://github.com/roncampbell/NICAR2022/blob/images/tmap2.png)
   
-
+We've been making choropleth maps, in which shades represent numeric values. But there are other tools for visualizing data on maps. One method: bubbles, with larger bubbles representing greater values. We'll build a bubble map for Fulton County.
   
- 
+First, let's join Fulton data with a Fulton County shapefile.
+  
+<code>fulton_tract_race_map <- left_join(fulton_tracts20, 
+                                   fulton_races,
+                               by = "GEOID")</code>
+  
+Now we'll create the map.
+  
+<code>tm_shape(fulton_tract_race_map) +
+  tm_polygons() +
+  tm_bubbles(size = "Black_per", alpha = 0.2, col = "green")</code>
+  
+![]()
+  
+As usual with tmap, the popups could use some improvements.
+  
+<code>tm_shape(fulton_tract_race_map) +
+  tm_polygons() +
+  tm_bubbles(size = "Black_per", alpha = 0.2, col = "green",
+  popup.vars = c("County", "Tract", "Black (%)" = "Black_per"))</code>
+  
+![]() 
   
