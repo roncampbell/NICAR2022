@@ -234,7 +234,7 @@ Now we'll build a bar chart. The x, or horizontal axis, will be counties; the y,
 <code>ggplot(metro_co_long, aes(x = County, y = Percent, fill = Race)) +
   geom_bar(position = "stack", stat = "identity")</code>
 
-![]()  
+![](https://github.com/roncampbell/NICAR2022/blob/images/StackedBars1.png)  
   
 The bars don't quite reach 100%; we could get most of the way if we included the multiracial category. We'll finish the chart by realigning the county labels and adding a title and source plus a better background.
   
@@ -248,5 +248,5 @@ The bars don't quite reach 100%; we could get most of the way if we included the
   theme(axis.text.x = 
   element_text(angle = 90, hjust = 1, vjust = 0.5))</code>
 
-![]()  
+![](https://github.com/roncampbell/NICAR2022/blob/images/StackedBars2.png)  
   
