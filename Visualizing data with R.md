@@ -288,7 +288,7 @@ Another way to visualize comparisons is with boxplots. A boxplot displays a rang
 <code>ggplot(metro_tract_income, aes(x = County, y = MedHHInc)) +
   geom_boxplot()</count>
   
-![]()
+![](https://github.com/roncampbell/NICAR2022/blob/images/Boxplot1.png)
   
 Each box represents one of the eight Atlanta metro counties. The thick horizontal line is the median; the box itself represents the Interquartile Range, IQR for short, which is the range from the 25th to the 75th percentiles of median household income by tract in each county. As you can see, the counties differ quite a bit. The lines extending out from the boxes are called "whiskers"; they are 1.5 times the length of the IQR. Any tract that is beyond that length, more than 1.5 times the IQR is, by definition, an outlier, and is represented by a dot. 
   
@@ -307,4 +307,4 @@ Now all we have to do is clean up the boxplot, and we're done.
           element_text(angle = 90, hjust = 1, vjust = 0.5)) +
   scale_y_continuous(labels=scales::dollar_format())</code>
   
-![]()
+![](https://github.com/roncampbell/NICAR2022/blob/images/Boxplot2.png)
