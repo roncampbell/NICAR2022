@@ -44,7 +44,7 @@ Use tidycensus to grab redistricting file by county.
                                        state = '13',
                    geometry = FALSE)</code> 
 
-Simplify the categories from 73 to 9.
+Simplify the categories from 73 to 9; the ninth, multiracial, summarizes all the data in the 10th through 73rd categories.
   
 <code>ga_races <- ga_race20 %>% 
   filter(variable %in% c("P2_001N", "P2_002N", "P2_005N", "P2_006N",
@@ -108,3 +108,10 @@ We can clean it up with just a few lines of code:
 
 ![](https://github.com/roncampbell/NICAR2022/blob/images/metro_tract_race2.png)
 
+The next steps with the metro_tract_race table are exactly the same as what we did with the ga_races table:
+  
+  1) Reduce the number of racial categories from 73 to 9. 
+  2) Replace census variables with plain-English variables.
+  3) Calculate racial percentages.
+  
+  
