@@ -43,7 +43,7 @@ One of the quickest ways to explore data is with a histogram. Let's see how many
 <code>ggplot(ga_races, aes(White_per)) +
   geom_histogram()</code>
   
-![]()
+![](https://github.com/roncampbell/NICAR2022/blob/images/histogram1.png)
   
 Let's add a scale. That will make it easier to compare Whites with other racial groups. Since only a handful of the 159 counties are in any one category ("bin" in histogram-speak), we can set the vertical (y) axis low.
   
