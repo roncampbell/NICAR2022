@@ -44,7 +44,7 @@ Use tidycensus to grab redistricting file by county.
                                        state = '13',
                    geometry = FALSE)</code> 
 
-Simplify the categories from 73 to 9; the ninth, multiracial, summarizes all the data in the 10th through 73rd categories.
+Simplify the categories from 73 to 9; the ninth category, multiracial, summarizes all the data in the 10th through 73rd categories.
   
 <code>ga_races <- ga_race20 %>% 
   filter(variable %in% c("P2_001N", "P2_002N", "P2_005N", "P2_006N",
