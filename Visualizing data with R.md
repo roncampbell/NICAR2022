@@ -52,7 +52,7 @@ Let's add a scale. That will make it easier to compare Whites with other racial 
   scale_x_continuous(limits = c(0, 100)) +
   scale_y_continuous(limits = c(0, 20))</code>
   
-![]()
+![](https://github.com/roncampbell/NICAR2022/blob/images/histogram2.png)
   
 Let's brighten it up by changing the background and adding an outline and fill to the bars.
   
