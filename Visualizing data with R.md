@@ -283,4 +283,28 @@ Much better. The dots are clearly ordered and pop out. The county labels are eas
   
   ![](https://github.com/roncampbell/NICAR2022/blob/images/MetroIncome3.png)
   
+Another way to visualize comparisons is with boxplots. A boxplot displays a range of values, including the median and outliers. It's easier to build one first and then explain what it means.
   
+<code>ggplot(metro_tract_income, aes(x = County, y = MedHHInc)) +
+  geom_boxplot()</count>
+  
+![]()
+  
+Each box represents one of the eight Atlanta metro counties. The thick horizontal line is the median; the box itself represents the Interquartile Range, IQR for short, which is the range from the 25th to the 75th percentiles of median household income by tract in each county. As you can see, the counties differ quite a bit. The lines extending out from the boxes are called "whiskers"; they are 1.5 times the length of the IQR. Any tract that is beyond that length, more than 1.5 times the IQR is, by definition, an outlier, and is represented by a dot. 
+  
+You might be asking how a whisker can be longer than the Interquartile Range. Here's an example: Fulton County's IQR is from $35,872 (the 25th percentile of median household income) to $102,758 (the 75th percentile), a range of $66,886; 1.5 times that range is $100,329. An outlier tract in Fulton County would have a median household income greater than $102,758 + 100,329, or $203,087). Three tracts exceed that measure.
+
+Now all we have to do is clean up the boxplot, and we're done.
+  
+<code>ggplot(metro_tract_income, aes(x = County, y = MedHHInc)) +
+  geom_boxplot() +
+  labs(title = 'Median household income in the Atlanta Metro',
+       caption = "Source: American Community Survey, 2019") +
+  ylab("Median Household Income") +
+  xlab("") +
+  theme_classic() +
+  theme(axis.text.x = 
+          element_text(angle = 90, hjust = 1, vjust = 0.5)) +
+  scale_y_continuous(labels=scales::dollar_format())</code>
+  
+![]()
