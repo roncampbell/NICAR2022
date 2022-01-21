@@ -216,5 +216,37 @@ But the legend is off by itself. We can do a little better.
   
 ![](https://github.com/roncampbell/NICAR2022/blob/images/MetroTractRaces2.png)
   
+Another way of visualizing population is with a stacked bar chart, where each component is a segment of the bar. Let's compare the Atlanta metro counties using stacked bars.
 
+First, we'll convert the county race data to long format, just as we did earlier with the tract data.
+  
+<code>metro_co_long <- metro_co_races %>% 
+  select(County = NAME, White_per, Black_per, Hispanic_per, Asian_per) %>% 
+  pivot_longer(!County, names_to = "Race", values_to = "Percent")</code>
+  
+And we don't really need the word "Georgia" in the labels. It will just make them longer without adding info we need.
+  
+<code>metro_co_long <- metro_co_long %>% 
+  mutate(County = str_remove(County, ",.*$"))</code>
+  
+Now we'll build a bar chart. The x, or horizontal axis, will be counties; the y, vertical, axis will be percent, and the fill, a third variable, will be race.
+  
+<code>ggplot(metro_co_long, aes(x = County, y = Percent, fill = Race)) +
+  geom_bar(position = "stack", stat = "identity")</code>
+
+![]()  
+  
+The bars don't quite reach 100%; we could get most of the way if we included the multiracial category. We'll finish the chart by realigning the county labels and adding a title and source plus a better background.
+  
+<code>ggplot(metro_co_long, aes(x = County, y = Percent, fill = Race)) +
+  geom_bar(position = "stack", stat = "identity") +
+  labs(title = 'Racial makeup of Atlanta metro counties',
+       caption = 'Source: 2020 census') +
+  theme_classic() +
+  xlab('Counties') +
+  ylab('Percent') +
+  theme(axis.text.x = 
+  element_text(angle = 90, hjust = 1, vjust = 0.5))</code>
+
+![]()  
   
