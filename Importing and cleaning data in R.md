@@ -114,4 +114,22 @@ The next steps with the metro_tract_race table are exactly the same as what we d
   2) Replace census variable names with plain-English variable names.
   3) Calculate racial percentages.
   
+After you have taken those three steps, create a table of Fulton County tracts by filtering metro_tract_race.
   
+<code>fulton_tract_race <- metro_tract_race %>% 
+  filter(County == 'Fulton County')</code>
+  
+Now we're going to switch gears from the 2020 Census to the American Community Survey 2019 5-Year Estimates. (The 2020 ACS is due for release in mid to late March, shortly after NICAR.) Once again, tidycensus is our one-stop shopping center for census data. We'll begin by getting median household income for the Atlanta metro counties.
+  
+<code>metro_county_inc <- get_acs(geography = "county",
+                            variables = "B19013_001",
+                            year = 2019,
+                            state = "GA",
+                            county = c('057', '063', '067', '089',
+                                       '117', '121', '135', '151'),
+                          survey = "acs5")</code>
+  
+A couple of footnotes: The code above calls for a specific variable in a specific table, B19013_001, median household income in the past 12 months, from "acs5", meaning the American Community Survey 5-Year Estimates, for the year 2019 for eight specified Georgia counties. But how did I know what to ask for among the thousands of tables the Census Bureau offers? The answer is that tidycensus has an insanely useful tool called "load_variables". You can get a list of every variable in every table in the ACS and the decennial census by specifying the year, the dataset and whether you want to cache it. For details see <https://walker-data.com/tidycensus/reference/load_variables.html>. (Not mentioned in the website, if you want the variables for the redistricting file, the dataset is "pl" as in "public law.")
+
+  
+
