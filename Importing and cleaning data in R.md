@@ -96,13 +96,15 @@ The data frame is a bit messy. It looks like this.
 
 ![](https://github.com/roncampbell/NICAR2022/blob/images/metro_tract_race.png)
 
-We can clean it up with just a few lines of code:
+We can clean it up with just a few lines of code. The first "mutate" line removes ", Georgia" from the name field because all the counties are in Georgia. The second line creates a new column, County, and fills it with one or more words followed by "County" from the Name column. The third line removes everything from the Name column after the ",", leaving just the tract name. 
 
 <code>metro_tract_race <- metro_tract_race %>% 
   mutate(NAME = str_remove(NAME, ", Georgia"),
          County = str_extract(NAME, "[A-Z,a-z]+ County$"),
   NAME = str_remove(NAME, ", .*$"))</code>
-         
+
+Rearrange the columns and rename the Name column to Tract.
+  
 <code>metro_tract_race <- metro_tract_race[,c(1,5,2:4)]</code>
 <code>colnames(metro_tract_race)[3] <- 'Tract'</code>
 
@@ -131,5 +133,9 @@ Now we're going to switch gears from the 2020 Census to the American Community S
   
 A couple of footnotes: The code above calls for a specific variable in a specific table, B19013_001, median household income in the past 12 months, from "acs5", meaning the American Community Survey 5-Year Estimates, for the year 2019 for eight specified Georgia counties. But how did I know what to ask for among the thousands of tables the Census Bureau offers? The answer is that tidycensus has an insanely useful tool called "load_variables". You can get a list of every variable in every table in the ACS and the decennial census by specifying the year, the dataset and whether you want to cache it. For details see <https://walker-data.com/tidycensus/reference/load_variables.html>. (Not mentioned in the website, if you want the variables for the redistricting file, the dataset is "pl" as in "public law.")
 
+The file requires a little cleaning. First, since all eight counties are in Georgia, we'll remove ", Georgia" from the name field.
+  
+<code>metro_county_inc <- metro_county_inc %>% 
+  mutate(NAME = str_remove(NAME, ", .*$"))</code>
   
 
