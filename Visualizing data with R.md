@@ -127,7 +127,7 @@ Let's take another look at the percentage of Black residents in Georgia counties
 <code>tm_shape(ga_race_map) +
   tm_fill(col = "Black_per", palette = "viridis", alpha = 0.5)</code>
   
-![]()
+![](https://github.com/roncampbell/NICAR2022/blob/images/tmap1.png)
   
 When we click on a county, we get a semi-informative popup. But we can customize the popup to provide more information:
   
@@ -136,7 +136,7 @@ When we click on a county, we get a semi-informative popup. But we can customize
           popup.vars = c("County" = "NAME.x", 
   "Black (%)" = "Black_per"))</code>
   
-![]()
+![](https://github.com/roncampbell/NICAR2022/blob/images/tmap2.png)
   
 
   
