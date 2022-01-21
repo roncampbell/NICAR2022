@@ -62,7 +62,7 @@ Let's brighten it up by changing the background and adding an outline and fill t
   scale_x_continuous(limits = c(0, 100)) +
   scale_y_continuous(limits = c(0, 20))</code>
   
-![]()
+![](https://github.com/roncampbell/NICAR2022/blob/images/histogram3.png)
   
 One of the great things about R is that we can reuse the code. Let's recycle this code for Black residents. We just have to change a single word.
   
